@@ -1,10 +1,10 @@
 const currentDateTime = $('#currentDay');
 currentDateTime.text(moment());
 const calendarBody = $('.container');
-const timeBody = $('.hourly-text')
-const myModal = $('.modal');
-const saveButton = $('#save-btn');
-let calendarText = $('#task');
+
+// const myModal = $('.modal');
+
+// let calendarText = $('#task');
 
 
 const numbers = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"]
@@ -41,6 +41,8 @@ const renderTimeBlocks = function() {
 
         const saveBtn = $('<button>');
         saveBtn.addClass('saveBtn');
+        saveBtn.attr('data-hour', numbers[i])
+        saveBtn.text('Save!')
         rowDiv.append(saveBtn);
     };
 };
@@ -52,7 +54,6 @@ const populateCalendar = function() {
         $('.time-block').each(function() {
             if ($(this).attr('data-hour') === taskArray[i].hour) {
                 $(this).text(taskArray[i].task)
-                console.log('match found' + taskArray[i].hour + taskArray[i].task)
             }
         })
     }
@@ -60,7 +61,7 @@ const populateCalendar = function() {
 
 
 const changeColors = function() {
-    $('.time-block').each(function(i) {
+    $('.time-block').each(function() {
         if ($(this).attr('data-hour') < moment().format('HH')){
             $(this).addClass('past')
         }
@@ -72,32 +73,6 @@ const changeColors = function() {
         }
     })
 }
-
-
-
-calendarBody.click(function(event){
-    let targetCell = $(event.target);
-    targetCell.on('click', myModal.modal('show'));
-    tCell = targetCell
-})
-
-
-saveButton.click(function() {
-    if (tCell.hasClass('timeBlock')) {
-        alert('alerT@Q')
-    }
-    else {
-        tCell.text(calendarText.val());
-        taskObject.hour = tCell.attr('data-hour')
-        taskObject.task = calendarText.val()
-        taskArray.push(taskObject)
-        taskObject = {}
-        storeCalendarTasks()
-        console.log(taskObject)
-        console.log(taskArray)
-    }
-    myModal.modal('hide');
-});
 
 
 const storeCalendarTasks = function() {
@@ -116,3 +91,42 @@ const init = function() {
 }
 
 init()
+
+let timeBody = $('.time-block')
+let saveButton = $('.saveBtn');
+
+// calendarBody.click(function(event){
+//     let targetCell = $(event.target);
+//     targetCell.on('click', myModal.modal('show'));
+//     tCell = targetCell
+// })
+
+
+saveButton.on('click', function(event) {
+    console.log('something')
+    $('.time-block').each(function() {
+        if ($(this).attr('data-hour') == saveButton.attr('data-hour')) {
+            taskObject.task = $(this).val()
+            taskObject.hour = $(this).attr('data-hour')
+            storeCalendarTasks()
+        }
+    })
+});
+
+
+
+
+    // if (tCell.hasClass('timeBlock')) {
+    //     alert('alerT@Q')
+    // }
+    // else {
+    //     tCell.text(calendarText.val());
+    //     taskObject.hour = tCell.attr('data-hour')
+    //     taskObject.task = calendarText.val()
+    //     taskArray.push(taskObject)
+    //     taskObject = {}
+    //     storeCalendarTasks()
+    //     console.log(taskObject)
+    //     console.log(taskArray)
+    // }
+    // myModal.modal('hide');
