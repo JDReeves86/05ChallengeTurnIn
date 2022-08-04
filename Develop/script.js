@@ -7,7 +7,7 @@ const calendarBody = $('.container');
 // let calendarText = $('#task');
 
 
-const numbers = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"]
+const numbers = ["08", "09", "10", "11", "12", "13", "14", "15", "16", "17"]
 
 
 let taskArray = []
@@ -104,29 +104,15 @@ let saveButton = $('.saveBtn');
 
 saveButton.on('click', function(event) {
     console.log('something')
-    $('.time-block').each(function() {
-        if ($(this).attr('data-hour') == saveButton.attr('data-hour')) {
+    let clicked = $(event.target)
+    $('.time-block').each(function(i) {
+        if ($(this).attr('data-hour') == clicked.attr('data-hour')) {
             taskObject.task = $(this).val()
             taskObject.hour = $(this).attr('data-hour')
+            taskArray.push(taskObject)
+            taskObject = {}
+            console.log(taskArray)
             storeCalendarTasks()
         }
     })
 });
-
-
-
-
-    // if (tCell.hasClass('timeBlock')) {
-    //     alert('alerT@Q')
-    // }
-    // else {
-    //     tCell.text(calendarText.val());
-    //     taskObject.hour = tCell.attr('data-hour')
-    //     taskObject.task = calendarText.val()
-    //     taskArray.push(taskObject)
-    //     taskObject = {}
-    //     storeCalendarTasks()
-    //     console.log(taskObject)
-    //     console.log(taskArray)
-    // }
-    // myModal.modal('hide');
