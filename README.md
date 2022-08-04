@@ -51,7 +51,7 @@
 <br>
 
 3. WHEN viewed, each timeblock is color coded to indicate whether it is in the past, present, or future.
-    > Each time block is color coded based upon the current time of day. the current hour is displayed as a red color, while past events grey out and text is struck through, finally future events are colored green. This is achieved by assigned dataset values to the cells and comparing those values to the current time using moment() and formatting to 'HH'. If the dataset value is equal to the current moment() value, it is assigned a class of either 'past', 'future' or 'present'. By assigning these classes it allows the CSS sheet to dynamically apply properties to the classes. Since moment() looks at the exact time/date, this is evaluated continuously and allows for real time changes in the CSS properties.
+    > Each time block is color coded based upon the current time of day. the current hour is displayed as a red color, while past events grey out and text is struck through, finally future events are colored green. This is achieved by assigned dataset values to the cells and comparing those values to the current time using moment() and formatting to 'HH'. If the dataset value is equal to the current moment() value, it is assigned a class of either 'past', 'future' or 'present'. By assigning these classes it allows the CSS sheet to dynamically apply properties to the classes.
 <br>
 
 4. WHEN a timeblock is clicked, the user can enter an event.
