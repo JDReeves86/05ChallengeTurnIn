@@ -26,23 +26,23 @@ const timeRefresh = setInterval(function(){
 const renderTimeBlocks = function() {
     for (let i = 0; i < numbers.length; i++) {
         const rowDiv = $('<div>');
-        rowDiv.addClass('row');
+        rowDiv.addClass('row col-12 d-flex');
         calendarBody.append(rowDiv);
 
         const timeBlock = $('<div>');
-        timeBlock.addClass('hour')
+        timeBlock.addClass('hour col-12 col-md-1 p-2 mt-1 mb-1 h2 font-weight-bold')
         timeBlock.text(numbers[i])
         rowDiv.append(timeBlock);
 
         const hourlyText = $('<textarea>');
-        hourlyText.addClass('time-block');
+        hourlyText.addClass('time-block col-12 col-md-10 p-2 mt-1 mb-1 h5 font-weight-normal');
         hourlyText.attr('data-hour', numbers[i])
         rowDiv.append(hourlyText);
 
         const saveBtn = $('<button>');
-        saveBtn.addClass('saveBtn');
+        saveBtn.addClass('saveBtn col-12 col-md-1 p-2 mt-1 mb-1 h4');
         saveBtn.attr('data-hour', numbers[i])
-        saveBtn.text('Save!')
+        saveBtn.text('💾')
         rowDiv.append(saveBtn);
     };
 };
