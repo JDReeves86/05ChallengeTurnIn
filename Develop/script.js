@@ -19,7 +19,7 @@ let tCell;
 
 
 const timeRefresh = setInterval(function(){
-    currentDateTime.text(moment());
+    currentDateTime.text(moment().format('dddd MMMM Do YYYY HH:mm:ss'));
 }, 1000)
 
 
