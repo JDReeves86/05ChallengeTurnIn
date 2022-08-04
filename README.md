@@ -76,23 +76,11 @@
 
 <br>
 
-![myscreenshot](./Assets/screenshot1.png)
+![myscreenshot](./Assets/Screenshot1.png)
 
 <br>
 
-Initial state
-
-<br>
-
-  ---
-
-<br>
-
-![alt text](./Assets/ScreenCastGif.gif)
-
-<br>
-
-Start of quiz, demonstrating timer & score
+Header displaying current time.
 
 <br>
 
@@ -100,25 +88,26 @@ Start of quiz, demonstrating timer & score
 
 <br>
 
-![myscreenshot](./Assets/screenshot2.png)
+![myscreenshot](./Assets/Screenshot2.png)
 
 <br>
 
-User inputs their initial at completion of quiz
+Calendar body with different colors based upon time.
 
 <br>
 
----
+  ---
 
 <br>
 
-![myscreenshot](./Assets/screenshot3.png)
+![alt-text](./Assets/Gif1.gif)
 
 <br>
 
-Scoreboard showing the users initials, score, and remaining time on their attempt.
+Example of user input being saved and persisting upon reload of page.
 
 <br>
+
 
 ### Links ###
 

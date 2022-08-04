@@ -23,7 +23,7 @@ const renderTimeBlocks = function() {
         
         // builds the row dive to house the other 3 elements.
         const rowDiv = $('<div>');
-        rowDiv.addClass('row col-12 d-flex');
+        rowDiv.addClass('row col-12');
         calendarBody.append(rowDiv);
 
         // creates number block on left side of page. 
