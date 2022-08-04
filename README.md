@@ -24,12 +24,12 @@
 
 <br>
 
-1. WHEN the user opens the planner the current day is displayed at the top of the calendar
-2. WHEN the user scroll down they are presented with timeblocks for standard business hours
-3. WHEN viewed, each timeblock is color coded to indicate whether it is in the past, present, or future
+1. WHEN the user opens the planner the current day is displayed at the top of the calendar.
+2. WHEN the user scroll down they are presented with timeblocks for standard business hours.
+3. WHEN viewed, each timeblock is color coded to indicate whether it is in the past, present, or future.
 4. WHEN a timeblock is clicked, the user can enter an event.
-5. WHEN the save button for that timeblock is clicked, the text for that event is saved in local storage
-6. WHEN the page is refreshed the saved events persist
+5. WHEN the save button for that timeblock is clicked, the text for that event is saved in local storage.
+6. WHEN the page is refreshed the saved events persist.
 
 <br>
 <br>
@@ -40,27 +40,32 @@
 
 <br>
 
-1. WHEN the start button is selected, a timer starts counting down and the first question is presented.
-    > An event listener tied to the start quiz button calls the function that reveals the hidden quiz HTML elements. It also starts the timer for the quiz. Once the timer reaches 0 or, int he event is less than 0 due to incorrect answers, the user is immediately taken to the final page where they are prompted to input their initials. This occurs regardless of whether or not they complete the quiz.
+1. WHEN the user opens the planner the current day is displayed at the top of the calendar.
+    > When the page is opened, the user is presented with a daily planner. Included in the title is the current date & time formatted for readability. This date/time is set to a timer so it is refreshed every second so that the exact current date/time is always displayed.
 
 <br>
 
-2. WHEN an answer is selected, the next question populates the page.
-    > All questions, answers, and associated boolean values are stored in the quiz array. Within the array are objects that hold the question, answer, and boolean values associated with the answers. When the start button is clicked, the function questionPopulation is called with the argument vlaue of i declared in the beginning of the script. The start button also increments i by one to begin the proper sequencing of the questionPopulation function. As a user clicks on the options, an event listener recalls the questionPopulation function with the current value of i, then increments i by one again to prime the quiz for the next call of questionPopulation.
+2. WHEN the user scroll down they are presented with timeblocks for standard business hours.
+    > The current state of this page is standard business hours from 0900 - 1800. By storing these values in an array, the calendar can easily be expanded or adapted to a users specific time preferences by changing the array values.
 
 <br>
 
-3. WHEN selecting an incorrect answer, 15 seconds are subtracted from the timer. If a correct answer is selected no time is subtracted and one point is added to the score.
-    > The function answerChecker is tied to event listeners for each of the answer elements. Using data-sets, the script can dynamically change data attributes to pass into the answerChecker function to ensure the appropriate boolean values are associated with the answer selected. If the boolean value is true, a point is added to the score. If false, 15 seconds are subtracted from the timer and the next question function is called.
+3. WHEN viewed, each timeblock is color coded to indicate whether it is in the past, present, or future.
+    > Each time block is color coded based upon the current time of day. the current hour is displayed as a red color, while past events grey out and text is struck through, finally future events are colored green. This is achieved by assigned dataset values to the cells and comparing those values to the current time using moment() and formatting to 'HH'. If the dataset value is equal to the current moment() value, it is assigned a class of either 'past', 'future' or 'present'. By assigning these classes it allows the CSS sheet to dynamically apply properties to the classes. Since moment() looks at the exact time/date, this is evaluated continuously and allows for real time changes in the CSS properties.
 <br>
 
-4. WHEN the user answers all the questions or when the timer reaches 0, the user is taken to the final page where they are prompted to input their initials.
-    > When either the final question is answered or the timer reaches 0, the finalPage function is called and the user is taken to the end of the quiz. At this point new HTML elements are generated creating a simple form with text input and a submit button.
+4. WHEN a timeblock is clicked, the user can enter an event.
+    > Timeblocks are built as text areas so the user can easily click on a cell and type in whatever event they wish to input.
 
 <br>
 
-5. WHEN the user types in their initials and clicks submit, their initials and score are displayed along with the remaining time on their attempt.
-    > Once the user has reached the final page and type in their initials, they click submit and their initials are taken from the text input, the remaining time left on the timer and their score are also pulled and displayed on the screen for them to see. The leaderboard will list all users who hav attempted to take the quiz using local storage. The user is presented with an option to either restart the quiz or clear the leaderboard. Clearing the leaderboard will remove the currently listed attempts while also emptying local storage. Restart will reload the page for the user to make another attempt. Reloading the page preserves the leaderboard so the user(s) can compare prior attempts. Leaderboard is not sorted in anyway but is rather listed in chronological order of attempts.
+5. WHEN the save button for that timeblock is clicked, the text for that event is saved in local storage..
+    > Save buttons are built within the rows and appended to the row. These buttons are also given dataset values that correspond with the hours timeblock. This is necessary to ensure the save buttons are specific to each timeblock and do not arbitrarily save values from other blocks. To the bottom of the script.js file is a click event handler that ensures proper saving of the values. This function uses the .each() method to iterate over the timeblock elements. Each iteration uses an if statement to compare the dataset value of the button clicked and then as the function iterates through the timeblocks, compares the datasets until a matching pair is found. Once a matching pair is found, the text in the timeblock is put into an empty object and then assigns the dataset value into another key of the object. The object is then pushed into an array for local storage and then the object is cleared and reset, ready for new data. Once the object is added to the array, local storage is set so that upon reload of the page, the data can persist.
+
+<br>
+
+6. WHEN the page is refreshed the saved events persist.
+    > When the save button is pressed and the function completes, the array that the objects are pushed to are set to local storage. The init() function retrieves local storage and assigns any existing values into the empty array created upon loading the page. This same function calls the populateCalendar() function that iterates over the timeblocks and for each item in the DOM it iterates through the array. Then compares the dataset value of the array. If an object in the array has a matching value stored, the the text value for that object is pupulated into the timeblock. If no matches are found, nothing happens. This ensures that the data input into the field persists upon reloading the page.
 
 <br>
 <br>

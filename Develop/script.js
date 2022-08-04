@@ -105,7 +105,7 @@ let saveButton = $('.saveBtn');
 saveButton.on('click', function(event) {
     console.log('something')
     let clicked = $(event.target)
-    $('.time-block').each(function(i) {
+    $('.time-block').each(function() {
         if ($(this).attr('data-hour') == clicked.attr('data-hour')) {
             taskObject.task = $(this).val()
             taskObject.hour = $(this).attr('data-hour')
