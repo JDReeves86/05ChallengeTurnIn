@@ -70,3 +70,21 @@ textarea {
   font-size: 20px;
   transition: all 0.3s ease-in-out;
 }
+
+@media screen and (max-width: 1150px) {
+  .hour {
+    font-size: 1rem;
+  }
+  .time-block {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .hour {
+    font-size: 0.8rem;
+  }
+  .time-block {
+    font-size: 0.8rem;
+  }
+}
