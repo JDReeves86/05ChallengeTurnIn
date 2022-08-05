@@ -4,7 +4,7 @@ currentDateTime.text(moment());
 const calendarBody = $('.container');
 
 // Array used to generate time blocks upon generating the page.
-const numbers = ["08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22"];
+const numbers = ["08", "09", "10", "11", "12", "13", "14", "15", "16", "17"];
 
 let taskArray = [];
 let taskObject = {};
@@ -22,24 +22,24 @@ const renderTimeBlocks = function() {
         
         // builds the row dive to house the other 3 elements.
         const rowDiv = $('<div>');
-        rowDiv.addClass('row col-12');
+        rowDiv.addClass('row col-12 d-flex');
         calendarBody.append(rowDiv);
 
         // creates number block on left side of page. 
         const timeBlock = $('<div>');
-        timeBlock.addClass('hour col-12 col-md-1 p-2 mt-1 mb-1 h2 font-weight-bold');
+        timeBlock.addClass('hour col-sm-1 p-2 h2 font-weight-bold');
         timeBlock.text(numbers[i] + ':00') // built based on 24 hour clock. Can be converted to 12 hour clock if desired, but will need to change this line, eliminate leading 0's and adjusting the moment() format in the changeColors() function.
         rowDiv.append(timeBlock);
 
         // Generates text areas for users to type into.
         const hourlyText = $('<textarea>');
-        hourlyText.addClass('time-block col-12 col-md-10 p-2 mt-1 mb-1 h5 font-weight-normal');
+        hourlyText.addClass('time-block col-sm-10 p-2 h5 font-weight-normal');
         hourlyText.attr('data-hour', numbers[i]);
         rowDiv.append(hourlyText);
 
         // Generates save button.
         const saveBtn = $('<button>');
-        saveBtn.addClass('saveBtn col-12 col-md-1 p-2 mt-1 mb-1 h4');
+        saveBtn.addClass('saveBtn col-sm-1 p-2 h4');
         saveBtn.attr('data-hour', numbers[i]);
         saveBtn.text('💾');
         rowDiv.append(saveBtn);
