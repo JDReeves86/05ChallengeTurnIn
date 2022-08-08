@@ -2,9 +2,12 @@
 const currentDateTime = $('#currentDay');
 currentDateTime.text(moment());
 const calendarBody = $('.container');
+const timeSwitcher = $('#timeSwitcher');
+const saveBtn = $('.saveBtn');
 
 // Array used to generate time blocks upon generating the page.
 const numbers = ["08", "09", "10", "11", "12", "13", "14", "15", "16", "17"];
+const twelveHrNumbers = ["8", "9", "10", "11", "12", "13", "14", "15", "16", "17"];
 
 let taskArray = [];
 let taskObject = {};
@@ -17,7 +20,8 @@ const timeRefresh = setInterval(function(){
 
 // Renders the calendar time blocks. Uses the numbers array to determine how many time blocks are generated. Called upon load by the init() function.
 // Allows for easily adjusting users desired parameters of the calendar by mererly adjusting the values in the numbers array.
-const renderTimeBlocks = function() {
+const render24hrTimeBlocks = function() {
+    // calendarBody.removeChild()
     for (let i = 0; i < numbers.length; i++) {
         
         // builds the row dive to house the other 3 elements.
@@ -27,7 +31,7 @@ const renderTimeBlocks = function() {
 
         // creates number block on left side of page. 
         const timeBlock = $('<div>');
-        timeBlock.addClass('hour col-sm-1 p-2 h2 font-weight-bold');
+        timeBlock.addClass('hour col-sm-1 p-2 h3 font-weight-bold');
         timeBlock.text(numbers[i] + ':00') // built based on 24 hour clock. Can be converted to 12 hour clock if desired, but will need to change this line, eliminate leading 0's and adjusting the moment() format in the changeColors() function.
         rowDiv.append(timeBlock);
 
@@ -45,6 +49,45 @@ const renderTimeBlocks = function() {
         rowDiv.append(saveBtn);
     };
 };
+
+
+const render12hrTimeBlocks = function() {
+    for (let i = 0; i < twelveHrNumbers.length; i++) {
+        
+        // builds the row dive to house the other 3 elements.
+        const rowDiv = $('<div>');
+        rowDiv.addClass('row col-12 d-flex');
+        calendarBody.append(rowDiv);
+
+        // creates number block on left side of page. 
+        const timeBlock = $('<div>');
+        timeBlock.addClass('hour col-sm-1 p-2 h3 font-weight-bold');
+        if(twelveHrNumbers[i] > 12) {
+            timeBlock.text((twelveHrNumbers[i]-12) + ' PM')
+        }
+        else if (twelveHrNumbers[i] == 12) {
+            timeBlock.text((twelveHrNumbers[i]) + ' PM')
+        }
+        else {
+            timeBlock.text(twelveHrNumbers[i] + ' AM')
+        }
+         // built based on 24 hour clock. Can be converted to 12 hour clock if desired, but will need to change this line, eliminate leading 0's and adjusting the moment() format in the changeColors() function.
+        rowDiv.append(timeBlock);
+
+        // Generates text areas for users to type into.
+        const hourlyText = $('<textarea>');
+        hourlyText.addClass('time-block col-sm-10 p-2 h5 font-weight-normal');
+        hourlyText.attr('data-hour', numbers[i]);
+        rowDiv.append(hourlyText);
+
+        // Generates save button.
+        const saveBtn = $('<button>');
+        saveBtn.addClass('saveBtn col-sm-1 p-2 h4');
+        saveBtn.attr('data-hour', numbers[i]);
+        saveBtn.text('💾');
+        rowDiv.append(saveBtn);
+    }
+}
 
 // Pulls taskArray and iterates through stored objects and then iterates through DOM for each element in array. 
 //Looks for matches of the datasets of the timeblocks and compares to the value stored in the hour key.
@@ -86,8 +129,31 @@ const init = function() {
     if (storedCalendarTasks !== null) {
         taskArray = storedCalendarTasks
     }
-    renderTimeBlocks()
+    render24hrTimeBlocks()
     populateCalendar()
+}
+
+let checked = false;
+
+let formatSwitcher = function() {
+
+    if (checked === true) {
+        checked = false
+        console.log('24hour =blocks')
+        console.log(checked)
+        calendarBody.empty() 
+        render24hrTimeBlocks()
+        populateCalendar()
+        $('.saveBtn').on('click', saveData);
+    }
+    else {
+        checked = true;
+        console.log('12 hour blocks!')
+        calendarBody.empty() 
+        render12hrTimeBlocks()
+        populateCalendar()
+        $('.saveBtn').on('click', saveData);
+    }
 }
 
 //Calls init()
@@ -97,16 +163,25 @@ init()
 // If a match is found, the text typed into the timeblock is placed into taskObject along with the dataset value. taskObject is then pushed into taskArray and then taskObject is cleared.
 // Be sure to clear taskObject after pushing to taskArray. Failure to do so results in taskObject's key/value pairs being overwritten with new values each time a save button is clicked.
 // Finally, storeCalendarTasks() is called to set local storage immediately.
-$('.saveBtn').on('click', function(event) {
+
+
+function saveData(event) {
     let clicked = $(event.target);
+    console.log('clicked' + $(this).attr('data-hour'))
     $('.time-block').each(function() {
         if ($(this).attr('data-hour') == clicked.attr('data-hour')) {
             taskObject.task = $(this).val();
             taskObject.hour = $(this).attr('data-hour');
             taskArray.push(taskObject);
             taskObject = {};
-            console.log(taskArray);
+            // console.log(taskArray);
             storeCalendarTasks();
         };
     });
-});
+}
+
+$('.saveBtn').on('click', saveData);
+$('#timeSwitcher').on('click', formatSwitcher)
+
+
+
