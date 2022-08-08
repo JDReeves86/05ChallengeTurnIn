@@ -144,25 +144,25 @@ let checked = false;
 // Also changes the text content of the button in the header.
 let formatSwitcher = function() {
     if (checked === true) {
-        checked = false
-        console.log('24hour =blocks')
-        console.log(checked)
-        calendarBody.empty() 
-        render24hrTimeBlocks()
-        populateCalendar()
+        checked = false;
+        console.log('24hour =blocks');
+        console.log(checked);
+        calendarBody.empty() ;
+        render24hrTimeBlocks();
+        populateCalendar();
         $('.saveBtn').on('click', saveData);
-        timeSwitcher.text('12-hour format')
+        timeSwitcher.text('Change to 12-hour format');
     }
     else {
         checked = true;
-        console.log('12 hour blocks!')
-        calendarBody.empty() 
-        render12hrTimeBlocks()
-        populateCalendar()
+        console.log('12 hour blocks!');
+        calendarBody.empty();
+        render12hrTimeBlocks();
+        populateCalendar();
         $('.saveBtn').on('click', saveData);
-        timeSwitcher.text('24-hour format')
-    }
-}
+        timeSwitcher.text('Change to 24-hour format')
+    };
+};
 
 // Sets functionality of the save button. Upon click, iterates through the timeblock elements and compares their dataset value (data-hour) to the dataset value of the button clicked. 
 // If a match is found, the text typed into the timeblock is placed into taskObject along with the dataset value. taskObject is then pushed into taskArray and then taskObject is cleared.
