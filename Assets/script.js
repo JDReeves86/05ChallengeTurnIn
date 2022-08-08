@@ -5,10 +5,11 @@ const calendarBody = $('.container');
 const timeSwitcher = $('#timeSwitcher');
 const saveBtn = $('.saveBtn');
 
-// Array used to generate time blocks upon generating the page.
+// Arrays used to generate time blocks upon generating the page.
 const numbers = ["08", "09", "10", "11", "12", "13", "14", "15", "16", "17"];
 const twelveHrNumbers = ["8", "9", "10", "11", "12", "13", "14", "15", "16", "17"];
 
+//Array/Object used to set local storage.
 let taskArray = [];
 let taskObject = {};
 
@@ -50,7 +51,8 @@ const render24hrTimeBlocks = function() {
     };
 };
 
-
+// Same as the above function, however it changes the text content of the time blocks.
+// Uses a seperate array to populate the text to ensure leading zeroes are not present. 
 const render12hrTimeBlocks = function() {
     for (let i = 0; i < twelveHrNumbers.length; i++) {
         
@@ -133,10 +135,14 @@ const init = function() {
     populateCalendar()
 }
 
+// variable used by formatSwitcher. Scoped globally, as if placed locally it will not switch back and forth.
 let checked = false;
 
+// Called when button at top of page is clicked asking if the user wishes to change to clock format.
+// Takes the checked variable and depending on the value will empty the calendar body and repopulate the HTML.
+// Then re-runs the populateCalendar() function to ensure that the tasks re-render in the newly created HTML elements.
+// Also changes the text content of the button in the header.
 let formatSwitcher = function() {
-
     if (checked === true) {
         checked = false
         console.log('24hour =blocks')
@@ -145,6 +151,7 @@ let formatSwitcher = function() {
         render24hrTimeBlocks()
         populateCalendar()
         $('.saveBtn').on('click', saveData);
+        timeSwitcher.text('12-hour format')
     }
     else {
         checked = true;
@@ -153,18 +160,14 @@ let formatSwitcher = function() {
         render12hrTimeBlocks()
         populateCalendar()
         $('.saveBtn').on('click', saveData);
+        timeSwitcher.text('24-hour format')
     }
 }
-
-//Calls init()
-init()
 
 // Sets functionality of the save button. Upon click, iterates through the timeblock elements and compares their dataset value (data-hour) to the dataset value of the button clicked. 
 // If a match is found, the text typed into the timeblock is placed into taskObject along with the dataset value. taskObject is then pushed into taskArray and then taskObject is cleared.
 // Be sure to clear taskObject after pushing to taskArray. Failure to do so results in taskObject's key/value pairs being overwritten with new values each time a save button is clicked.
 // Finally, storeCalendarTasks() is called to set local storage immediately.
-
-
 function saveData(event) {
     let clicked = $(event.target);
     console.log('clicked' + $(this).attr('data-hour'))
@@ -180,6 +183,10 @@ function saveData(event) {
     });
 }
 
+//Calls init()
+init()
+
+//Event listeners
 $('.saveBtn').on('click', saveData);
 $('#timeSwitcher').on('click', formatSwitcher)
 
