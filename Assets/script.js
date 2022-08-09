@@ -16,7 +16,12 @@ let taskObject = {};
 // Refreshes the clock in header every 10 milliseconds, setting to 1000 results in default moment() display showing on page for first second after loading. 
 // Smaller intervals means the desired display appears right away. Could be set to 1 millisecond, but seems unnecessary as 10 milliseconds is fast enough that people will only notice a brief flash.
 const timeRefresh = setInterval(function(){
-    currentDateTime.text(moment().format('dddd MMMM Do YYYY HH:mm:ss'));
+    if (checked === false) {
+        currentDateTime.text(moment().format('dddd MMMM Do YYYY HH:mm:ss'));
+    }
+    else {
+        currentDateTime.text(moment().format('dddd, MMMM Do YYYY, h:mm:ss a'))
+    }
 }, 10);
 
 // Renders the calendar time blocks. Uses the numbers array to determine how many time blocks are generated. Called upon load by the init() function.
