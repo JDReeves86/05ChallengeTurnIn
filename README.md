@@ -100,7 +100,7 @@ Calendar body with different colors based upon time.
 
 <br>
 
-![alt-text](./Assets/Gif1.gif)
+![alt-text](./Assets/Work%20Day%20Scheduler.gif)
 
 <br>
 
